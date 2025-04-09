@@ -11,7 +11,7 @@ import { AwsService } from './aws/aws.service';  // Importa el servicio de AWS
     TypeOrmModule.forRootAsync({
       imports: [AwsModule],  // Asegúrate de importar AwsModule para inyectar AwsService
       useFactory: async (awsService: AwsService) => {
-        const dbCredentials = await awsService.getRDSCredentials('your-db-instance-identifier');  // Obtén las credenciales
+        const dbCredentials = await awsService.getRDSCredentials('ctucl');  // Obtén las credenciales
 
         return {
           type: 'mysql',  // Usa el tipo MySQL (o el que corresponda con tu base de datos)

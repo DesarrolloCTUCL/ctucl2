@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AwsModule } from './aws/aws.module';  // Importa el módulo de AWS
 import { AwsService } from './aws/aws.service';  // Importa el servicio de AWS
+import { TablasModule } from './tablas/tablas.module';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { AwsService } from './aws/aws.service';  // Importa el servicio de AWS
         };
       },
       inject: [AwsService],  // Inyectamos AwsService en la configuración de TypeORM
-    }),
+    }), TablasModule,
   ],
   controllers: [AppController],
   providers: [AppService],

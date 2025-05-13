@@ -5,28 +5,36 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AwsModule } from './aws/aws.module';  // Importa el módulo de AWS
 import { AwsService } from './aws/aws.service';  // Importa el servicio de AWS
 import { TablasModule } from './tablas/tablas.module';
-
+import { PuntosRecargaModule } from './puntos_recarga/puntos_recarga.module';
+import { BusesSociosModule } from './buses_socios/buses_socios.module';
+import { ParadasModule } from './paradas/paradas.module';
+import { LineasModule } from './lineas/lineas.module';
 @Module({
   imports: [
-    AwsModule,  // Importa AwsModule
+    AwsModule,
     TypeOrmModule.forRootAsync({
-      imports: [AwsModule],  // Asegúrate de importar AwsModule para inyectar AwsService
+      imports: [AwsModule],
       useFactory: async (awsService: AwsService) => {
-        const dbCredentials = await awsService.getRDSCredentials('ctucl');  // Obtén las credenciales
+        const dbCredentials = await awsService.getRDSCredentials('ctucl');
 
         return {
-          type: 'mysql',  // Usa el tipo MySQL (o el que corresponda con tu base de datos)
+          type: 'mysql',
           host: dbCredentials.host,
           port: dbCredentials.port,
           username: dbCredentials.username,
           password: dbCredentials.password,
           database: dbCredentials.database,
-          entities: [/* tus entidades */],
-          synchronize: true,  // Solo para desarrollo, desactívalo en producción
+          entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          synchronize: false,
         };
       },
-      inject: [AwsService],  // Inyectamos AwsService en la configuración de TypeORM
-    }), TablasModule,
+      inject: [AwsService],
+    }),
+    TablasModule,
+    PuntosRecargaModule,
+    BusesSociosModule,
+    ParadasModule,
+    LineasModule
   ],
   controllers: [AppController],
   providers: [AppService],

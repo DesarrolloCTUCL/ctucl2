@@ -9,6 +9,8 @@ import { PuntosRecargaModule } from './puntos_recarga/puntos_recarga.module';
 import { BusesSociosModule } from './buses_socios/buses_socios.module';
 import { ParadasModule } from './paradas/paradas.module';
 import { LineasModule } from './lineas/lineas.module';
+import { AuthModule } from './autenticacion/auth.module';
+import { DespachosModule } from './Control_Flota/despachos/despachos.module';
 @Module({
   imports: [
     AwsModule,
@@ -34,7 +36,9 @@ import { LineasModule } from './lineas/lineas.module';
     PuntosRecargaModule,
     BusesSociosModule,
     ParadasModule,
-    LineasModule
+    LineasModule,
+    AuthModule,
+    DespachosModule
   ],
   controllers: [AppController],
   providers: [AppService],

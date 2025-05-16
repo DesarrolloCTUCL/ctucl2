@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, UseGuards } from '@nestjs/common';
 import { LineasService } from './lineas.service';
 import { Lineas } from './lineas.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('Lineas')
+@UseGuards(AuthGuard('jwt')) // 👈 Aplica protección a todo el controlador
 export class LineasController {
   constructor(private readonly service: LineasService) {}
 
